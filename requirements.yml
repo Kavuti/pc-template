@@ -1,0 +1,4 @@
+- src: ngetchell.vscode
+- src: sansible.golang
+- src: andrewrothstein.kind
+- src: andrewrothstein.kubectl

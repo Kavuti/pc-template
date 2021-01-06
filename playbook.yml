@@ -1,0 +1,20 @@
+- name: 'Configuring current system with standard tools {{ ansible_os_family }}'
+  hosts: localhost
+  connection: local
+  roles:
+    - ngetchell.vscode
+    - sansible.golang
+    - andrewrothstein.kind
+    - andrewrothstein.kubectl
+  # vars:
+  #  vscode_extension:
+  #    - ms-python.python
+  #    - golang.go
+  #    - 2gua.rainbow-brackets
+  #    - redhat.vscode-yaml'''
+  tasks:
+    - name: 'Install Telegram Desktop'
+      pacman:
+          name: telegram-desktop
+      when: ansible_os_family == "Arch"
+    
