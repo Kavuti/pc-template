@@ -1,20 +1,28 @@
-- name: 'Configuring current system with standard tools {{ ansible_os_family }}'
-  hosts: localhost
+- name: 'Configuring current system with standard tools'
+  hosts: all
   connection: local
+  become: yes
+  become_user: root
   roles:
     - ngetchell.vscode
     - sansible.golang
     - andrewrothstein.kind
     - andrewrothstein.kubectl
-  # vars:
-  #  vscode_extension:
-  #    - ms-python.python
-  #    - golang.go
-  #    - 2gua.rainbow-brackets
-  #    - redhat.vscode-yaml'''
-  tasks:
-    - name: 'Install Telegram Desktop'
-      pacman:
-          name: telegram-desktop
-      when: ansible_os_family == "Arch"
-    
+    - geerlingguy.helm
+  vars:
+    user: debian
+    vscode_extensions:
+      - 2gua.rainbow-brackets
+      - ms-python.python
+      - golang.go      
+  tasks:      
+    - name: 'Installing VSCode extensions'
+      become: yes
+      become_user: '{{ user }}'
+      shell: 'code --install-extension {{item}}'
+      loop: '{{ vscode_extensions }}'
+    - name: 'Add Golang bin to path'
+      copy:
+        src: path-go.sh
+        dest: /etc/profile.d/path-go.sh
+        mode: '0644'
