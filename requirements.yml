@@ -1,8 +1,0 @@
-roles:
-  - name: ngetchell.vscode
-  - name: sansible.golang
-  - name: andrewrothstein.kind
-  - name: andrewrothstein.kubectl
-  - name: geerlingguy.helm
-collections:
-  - name: community.docker
